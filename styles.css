@@ -1,0 +1,14 @@
+body {
+    padding-top: 50px;
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .cart-item-image {
+    height: 80px;
+    object-fit: cover;
+  }
+  

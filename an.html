@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Room Booking</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="an.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="room-card">
+              <img src="room1.jpg" alt="Room 1">
+              <h2>Room 1</h2>
+              <p>Price: $100 per hour</p>
+              <div class="quantity-controls">
+                <button class="decrease-hours btn btn-sm btn-secondary"><i class="fas fa-minus"></i></button>
+                <span class="hours">1</span> hour(s)
+                <button class="increase-hours btn btn-sm btn-secondary"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="date-controls">
+                <label for="start-date">Start Date:</label>
+                <input type="text" id="start-date" class="form-control" readonly>
+              </div>
+              <button class="add-to-cart btn btn-primary"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="room-card">
+              <img src="room2.jpg" alt="Room 2">
+              <h2>Room 2</h2>
+              <p>Price: $120 per hour</p>
+              <div class="quantity-controls">
+                <button class="decrease-hours btn btn-sm btn-secondary"><i class="fas fa-minus"></i></button>
+                <span class="hours">1</span> hour(s)
+                <button class="increase-hours btn btn-sm btn-secondary"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="date-controls">
+                <label for="start-date">Start Date:</label>
+                <input type="text" id="start-date" class="form-control" >
+              </div>
+              <button class="add-to-cart btn btn-primary"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+            </div>
+          </div>
+          <!-- Add more room cards for other rooms -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="cart">
+          <h2>Your Cart</h2>
+          <div class="cart-items">
+            <p>Your cart is empty.</p>
+          </div>
+          <div class="cart-summary">
+            <p id="subtotal">Subtotal: $0</p>
+            <button id="checkoutButton" class="btn btn-success"><i class="fas fa-shopping-cart"></i> Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Date and Time Picker Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  </head>
+  <body>
+    <!-- Your HTML content here -->
+    <input type="text" id="datetimepicker" placeholder="Select date and time">
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  </body>
+  </html>
+  <script>
+    flatpickr("#datetimepicker", {
+      enableTime: true,
+      dateFormat: "Y-m-d H:i",
+      minDate: "today",
+      defaultDate: "today",
+    });
+  </script>
+  
+  <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="an.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* CSS for the cart */
+    .cart {
+      background-color: #f1f1f1;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    
+    .item-image {
+      max-width: 100px;
+      max-height: 100px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var cartItems = []; // Array to store cart items
+    
+    function addItem() {
+      var itemName = document.getElementById("itemName").value;
+      var itemPrice = parseFloat(document.getElementById("itemPrice").value);
+      var itemQuantity = parseInt(document.getElementById("itemQuantity").value);
+      var itemImage = document.getElementById("itemImage").value;
+      
+      var item = {
+        name: itemName,
+        price: itemPrice,
+        quantity: itemQuantity,
+        image: itemImage
+      };
+      
+      cartItems.push(item); // Add item to cartItems array
+      
+      updateCart(); // Update the cart display
+      
+      // Clear input fields
+      document.getElementById("itemName").value = "";
+      document.getElementById("itemPrice").value = "";
+      document.getElementById("itemQuantity").value = "";
+      document.getElementById("itemImage").value = "";
+    }
+    
+    function removeItem(index) {
+      cartItems.splice(index, 1); // Remove item from cartItems array
+      
+      updateCart(); // Update the cart display
+    }
+    
+    function updateItem(index) {
+      var newName = document.getElementById("editName-" + index).value;
+      var newPrice = parseFloat(document.getElementById("editPrice-" + index).value);
+      var newQuantity = parseInt(document.getElementById("editQuantity-" + index).value);
+      
+      cartItems[index].name = newName;
+      cartItems[index].price = newPrice;
+      cartItems[index].quantity = newQuantity;
+      
+      updateCart(); // Update the cart display
+    }
+    
+    function updateCart() {
+      var cartElement = document.getElementById("cartItems");
+      cartElement.innerHTML = ""; // Clear previous cart items
+      
+      var totalPrice = 0;
+      
+      for (var i = 0; i < cartItems.length; i++) {
+        var item = cartItems[i];
+        var itemTotal = item.price * item.quantity;
+        
+        totalPrice += itemTotal;
+        
+        var itemElement = document.createElement("div");
+        itemElement.classList.add("cart-item");
+        itemElement.innerHTML = `
+          <div class="row">
+            <div class="col-md-2">
+              <img src="${item.image}" alt="Item Image" class="item-image">
+            </div>
+            <div class="col-md-2">
+              <input type="text" id="editName-${i}" class="form-control" value="${item.name}">
+            </div>
+            <div class="col-md-2">
+              <input type="number" min="0.01" step="0.01" id="editPrice-${i}" class="form-control" value="${item.price}">
+            </div>
+            <div class="col-md-2">
+              <input type="number" min="1" id="editQuantity-${i}" class="form-control" value="${item.quantity}">
+            </div>
+            <div class="col-md-2">$${itemTotal.toFixed(2)}</div>
+            <div class="col-md-2">
+              <button class="btn btn-primary btn-sm" onclick="updateItem(${i})">Update</button>
+              <button class="btn btn-danger btn-sm" onclick="removeItem(${i})">Remove</button>
+            </div>
+          </div>
+        `;
+        
+        cartElement.appendChild(itemElement);
+      }
+      
+      var totalPriceElement = document.getElementById("totalPrice");
+      totalPriceElement.textContent = "$" + totalPrice.toFixed(2);
+    }
+  </script>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>Shopping Cart</h1>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="itemImage">Item Image URL:</label>
+          <input type="text" id="itemImage" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="itemName">Item Name:</label>
+          <input type="text" id="itemName" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="itemPrice">Item Price:</label>
+          <input type="number" min="0.01" step="0.01" id="itemPrice" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="itemQuantity">Item Quantity:</label>
+          <input type="number" min="1" id="itemQuantity" class="form-control">
+        </div>
+        <button class="btn btn-primary" onclick="addItem()">Add to Cart</button>
+      </div>
+      <div class="col-md-6">
+        <div class="cart">
+          <h2>Cart</h2>
+          <div id="cartItems"></div>
+          <div class="cart-total">
+            <p>Total Price: <span id="totalPrice">$0.00</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hotel Room Booking - Cart</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    /* Custom CSS styles */
+    body {
+      padding-top: 60px;
+    }
+
+    .room-card {
+      margin-bottom: 20px;
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <!-- Content -->
+  <div class="container">
+    <h1 class="text-center mt-4">Hotel Rooms</h1>
+    <div class="row mt-4">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="room-card">
+              <img src="https://www.amenitiz.com/wp-content/uploads/2022/10/dervr7mcawpygipdzqvv.jpg" alt="Room 1">
+              <div class="card-body">
+                <h5 class="card-title">Room 1</h5>
+                <p class="card-text">Price: $100</p>
+                <button class="btn btn-primary add-to-cart" data-room-id="1">
+                  <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="room-card">
+              <img src="room2.jpg" alt="Room 2">
+              <div class="card-body">
+                <h5 class="card-title">Room 2</h5>
+                <p class="card-text">Price: $120</p>
+                <button class="btn btn-primary add-to-cart" data-room-id="2">
+                  <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Add more room cards for other rooms -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Your Cart</h5>
+            <div id="cart-items"></div>
+            <p id="subtotal">Subtotal: $0</p>
+            <p id="vat">VAT: $0</p>
+            <p id="total">Total: $0</p>
+            <button class="btn btn-success" id="checkoutButton">
+              <i class="fas fa-credit-card"></i> Checkout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script>
+    // Cart items array
+    var cartItems = [];
+
+    // Function to render the cart items
+    function renderCartItems() {
+      var cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = '';
+
+      if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        return;
+      }
+
+      var subtotal = 0;
+      cartItems.forEach(function(item) {
+        subtotal += item.price;
+        var itemElement = document.createElement('div');
+        itemElement.className = 'card mb-2';
+        itemElement.innerHTML = `
+          <div class="card-body">
+            <h5 class="card-title">${item.title}</h5>
+            <p class="card-text">Price: $${item.price}</p>
+            <button class="btn btn-danger remove-from-cart" data-room-id="${item.id}">
+              <i class="fas fa-trash-alt"></i> Remove
+            </button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemElement);
+      });
+
+      var vat = subtotal * 0.2; // Assuming VAT is 20%
+      var total = subtotal + vat;
+
+      document.getElementById('subtotal').textContent = 'Subtotal: $' + subtotal.toFixed(2);
+      document.getElementById('vat').textContent = 'VAT: $' + vat.toFixed(2);
+      document.getElementById('total').textContent = 'Total: $' + total.toFixed(2);
+    }
+
+    // Function to handle adding a room to the cart
+    function handleAddToCart(roomId) {
+      var room = {
+        id: roomId,
+        title: 'Room ' + roomId,
+        price: roomId === 1 ? 100 : 120
+      };
+      cartItems.push(room);
+      renderCartItems();
+    }
+
+    // Function to handle removing a room from the cart
+    function handleRemoveFromCart(roomId) {
+      cartItems = cartItems.filter(function(item) {
+        return item.id !== roomId;
+      });
+      renderCartItems();
+    }
+
+    // Add event listeners to the "Add to Cart" buttons
+    var addToCartButtons = document.getElementsByClassName('add-to-cart');
+    Array.prototype.forEach.call(addToCartButtons, function(button) {
+      button.addEventListener('click', function() {
+        var roomId = this.getAttribute('data-room-id');
+        handleAddToCart(parseInt(roomId));
+      });
+    });
+
+    // Add event listeners to the "Remove from Cart" buttons
+    var removeFromCartButtons = document.getElementsByClassName('remove-from-cart');
+    Array.prototype.forEach.call(removeFromCartButtons, function(button) {
+      button.addEventListener('click', function() {
+        var roomId = this.getAttribute('data-room-id');
+        handleRemoveFromCart(parseInt(roomId));
+      });
+    });
+  </script>
+</body>
+</html>

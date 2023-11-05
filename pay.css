@@ -1,0 +1,42 @@
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding-top: 50px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .form-row .col {
+    padding-top: 10px;
+  }
+  
+  .btn-primary {
+    margin-top: 20px;
+  }
+  
+  .text-muted.card-type-visa:before {
+    content: "\f1f0";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #3366cc;
+    margin-right: 5px;
+  }
+  
+  .text-muted.card-type-mastercard:before {
+    content: "\f1f1";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #eb001b;
+    margin-right: 5px;
+  }
+  
+  .text-muted.card-type-amex:before {
+    content: "\f1f3";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: #1a8ccb;
+    margin-right: 5px;
+  }
+  

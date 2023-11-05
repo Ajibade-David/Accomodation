@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/mdbootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Stunning Sign In Form</title>
+  <style>
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      background-color: #2196f3;
+      color: #fff;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .form-label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .btn-primary {
+      background-color: #2196f3;
+      border-color: #2196f3;
+      border-radius: 25px;
+      padding: 12px 24px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0c7cd5;
+      border-color: #0c7cd5;
+    }
+
+    .btn-primary:focus,
+    .btn-primary.focus {
+      box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.5);
+    }
+
+    .password-toggle-btn {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .password-toggle-btn i {
+      font-size: 18px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+
+        <div class="card">
+          <div class="card-header text-center">
+            <h4 class="mb-0">Sign In</h4>
+          </div>
+          <div class="card-body">
+
+            <form id="signin-form" autocomplete="off" class="needs-validation" novalidate>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" class="form-control" required />
+                <div class="invalid-feedback">
+                  Please provide a valid email address.
+                </div>
+              </div>
+
+              <div class="form-group position-relative">
+                <label class="form-label" for="password">Password</label>
+                <div class="input-group">
+                  <input type="password" id="password" class="form-control" required />
+                  <span class="input-group-append password-toggle-btn" id="password-toggle">
+                    <span class="input-group-text">
+                      <i class="far fa-eye"></i>
+                    </span>
+                  </span>
+                </div>
+                <div class="invalid-feedback">
+                  Please provide a password.
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember" />
+                  <label class="form-check-label" for="remember">Remember me</label>
+                </div>
+                <a href="#" class="text-primary">Forgot password?</a>
+              </div>
+
+             
+
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap/js/mdb.min.js"></script>
+  <script>
+    // Form validation
+    (function () {
+      'use strict';
+      window.addEventListener('load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+
+    // Password toggle
+    document.getElementById('password-toggle').addEventListener('click', function () {
+      var passwordInput = document.getElementById('password');
+      var passwordToggle = document.getElementById('password-toggle');
+
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        passwordToggle.innerHTML = '<span class="input-group-text"><i class="far fa-eye-slash"></i></span>';
+      } else {
+        passwordInput.type = 'password';
+        passwordToggle.innerHTML = '<span class="input-group-text"><i class="far fa-eye"></i></span>';
+      }
+    });
+  </script>
+
+</body>
+  
+</html>

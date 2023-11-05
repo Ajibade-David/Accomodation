@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paystack Payment Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .payment-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+    }
+
+    .payment-container h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body style="background-image: url(https://www.paymentsjournal.com/wp-content/uploads/2021/12/secure-online-payment-internet-banking-via-credit-card-mobile-scaled.jpg);">
+  <div class="container mt-5 py-5">
+    <div class="payment-container">
+      <h1>Paystack Payment Form</h1>
+      <form id="paymentForm" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="amount">Amount (NGN)</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">&#8358;</span>
+            </div>
+            <input type="number" id="amount" name="amount" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bank">Select Bank</label>
+          <select id="bank" name="bank" class="form-control" required>
+            <option value="">-- Select Bank --</option>
+            <option value="044">Access Bank</option>
+            <option value="063">Access (Diamond) Bank</option>
+            <option value="050">Ecobank</option>
+            <option value="058">GTBank</option>
+            <option value="011">First Bank</option>
+            <!-- Add more bank options as needed -->
+          </select>
+        </div>
+        <button type="button" id="payButton" class="btn btn-primary btn-block">Pay Now</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Include Paystack JavaScript library -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <script>
+    // Attach an event listener to the Pay Now button
+    document.getElementById('payButton').addEventListener('click', function() {
+      var email = document.getElementById('email').value;
+      var amount = document.getElementById('amount').value * 100; // Convert amount to kobo (minimum currency unit)
+      var bank = document.getElementById('bank').value;
+
+      // Initialize Paystack Inline
+      var handler = PaystackPop.setup({
+        key: 'pk_test_1b4ac526b028b145b6c95fcbebd61ab4f6dcee64', // Replace with your Paystack public key
+        email: email,
+        amount: amount,
+        currency: 'NGN', // Replace with your desired currency code
+        ref: 'PAYSTACK_' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference for the transaction
+        onClose: function() {
+          // Handle the close event (optional)
+        },
+        callback: function(response) {
+          // Handle the payment callback
+          console.log(response); // Log the response object to the console
+
+          // Redirect or display a success message to the user
+        },
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Bank",
+              variable_name: "bank",
+              value: bank
+            }
+          ]
+        }
+      });
+
+      // Open the Paystack payment form
+      handler.openIframe();
+    });
+  </script>
+</body>
+</html>
